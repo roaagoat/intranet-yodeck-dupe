@@ -1,0 +1,875 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Recruitment Detail</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+/* Layout: sidebar nav + main content, tabs for sub-pages */
+:root {
+  --bg: #F7F8FA;
+  --surface: #FFFFFF;
+  --border: #E4E7EC;
+  --fg: #101828;
+  --fg-2: #475467;
+  --fg-3: #98A2B3;
+  --accent: #1A6B5A;
+  --accent-light: #E8F5F1;
+  --accent-mid: #2D9A7A;
+  --warn: #B54708;
+  --warn-bg: #FEF6EE;
+  --red: #C01048;
+  --red-bg: #FFF1F3;
+  --blue: #1849A9;
+  --blue-bg: #EFF4FF;
+  --amber: #B45309;
+  --amber-bg: #FFFAEB;
+  --green: #027A48;
+  --green-bg: #ECFDF3;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0F1217;
+    --surface: #1A1F28;
+    --border: #2A3142;
+    --fg: #F0F4FF;
+    --fg-2: #8B95A8;
+    --fg-3: #4A5568;
+    --accent: #2D9A7A;
+    --accent-light: #0D2B23;
+    --accent-mid: #3DB891;
+    --warn: #E07B2A;
+    --warn-bg: #1F1208;
+    --red: #F06090;
+    --red-bg: #1F0812;
+    --blue: #6B9BF5;
+    --blue-bg: #0A1430;
+    --amber: #F0B429;
+    --amber-bg: #1F1500;
+    --green: #3ECF8E;
+    --green-bg: #0A2018;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0F1217; --surface: #1A1F28; --border: #2A3142;
+  --fg: #F0F4FF; --fg-2: #8B95A8; --fg-3: #4A5568;
+  --accent: #2D9A7A; --accent-light: #0D2B23; --accent-mid: #3DB891;
+  --warn: #E07B2A; --warn-bg: #1F1208; --red: #F06090; --red-bg: #1F0812;
+  --blue: #6B9BF5; --blue-bg: #0A1430; --amber: #F0B429; --amber-bg: #1F1500;
+  --green: #3ECF8E; --green-bg: #0A2018;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  font-size: 14px;
+  line-height: 1.5;
+  padding-left: max(0px, env(safe-area-inset-left, 0px));
+  padding-right: max(0px, env(safe-area-inset-right, 0px));
+}
+
+/* ── LAYOUT ── */
+.shell {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+.sidebar-logo {
+  padding: 0 16px 20px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 8px;
+}
+.sidebar-logo span {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.sidebar-logo .sub {
+  font-size: 11px;
+  color: var(--fg-3);
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  display: block;
+  margin-top: 2px;
+}
+.nav-group-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--fg-3);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 12px 16px 4px;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  font-size: 13px;
+  color: var(--fg-2);
+  cursor: pointer;
+  border-radius: 0;
+  transition: background 0.1s, color 0.1s;
+  border-left: 2px solid transparent;
+}
+.nav-item:hover { background: var(--bg); color: var(--fg); }
+.nav-item.active { 
+  background: var(--accent-light); 
+  color: var(--accent); 
+  border-left-color: var(--accent);
+  font-weight: 600;
+}
+.nav-icon { font-size: 15px; width: 18px; text-align: center; }
+
+/* Main */
+.main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Top bar */
+.topbar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 14px max(20px, env(safe-area-inset-right, 0px)) 14px max(20px, env(safe-area-inset-left, 0px));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.page-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--fg);
+}
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.badge-dept {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: var(--blue-bg);
+  color: var(--blue);
+}
+.refresh-label {
+  font-size: 11px;
+  color: var(--fg-3);
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  padding: 0 max(20px, env(safe-area-inset-left, 0px));
+}
+.tab {
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--fg-2);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  white-space: nowrap;
+}
+.tab:hover { color: var(--fg); }
+.tab.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+
+/* Content area */
+.content {
+  padding: 20px max(20px, env(safe-area-inset-right, 0px)) 32px max(20px, env(safe-area-inset-left, 0px));
+}
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ── COMPONENTS ── */
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--fg-3);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+/* KPI row */
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.kpi-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+.kpi-label {
+  font-size: 11px;
+  color: var(--fg-3);
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+.kpi-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--fg);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+.kpi-sub {
+  font-size: 11px;
+  color: var(--fg-3);
+  margin-top: 3px;
+}
+.kpi-card.warn { border-color: var(--warn); }
+.kpi-card.warn .kpi-value { color: var(--warn); }
+.kpi-card.green .kpi-value { color: var(--green); }
+
+/* Panel card */
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+.panel-head {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.panel-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--fg);
+}
+.panel-body { padding: 16px; }
+
+/* Funnel */
+.funnel {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.funnel-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.funnel-label {
+  width: 130px;
+  flex-shrink: 0;
+  font-size: 12px;
+  color: var(--fg-2);
+  text-align: right;
+}
+.funnel-bar-wrap {
+  flex: 1;
+  height: 20px;
+  background: var(--bg);
+  border-radius: 3px;
+  overflow: hidden;
+  min-width: 0;
+}
+.funnel-bar {
+  height: 100%;
+  border-radius: 3px;
+  background: var(--accent-mid);
+  transition: width 0.4s ease;
+}
+.funnel-bar.rejected { background: var(--red); opacity: 0.6; }
+.funnel-count {
+  width: 36px;
+  flex-shrink: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--fg);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.funnel-pct {
+  width: 38px;
+  flex-shrink: 0;
+  font-size: 11px;
+  color: var(--fg-3);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Table */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.data-table th {
+  text-align: left;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fg-3);
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+.data-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--fg);
+  vertical-align: middle;
+}
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:hover td { background: var(--bg); }
+.candidate-name { font-weight: 500; }
+.candidate-email { font-size: 11px; color: var(--fg-3); margin-top: 1px; }
+
+/* Chips / badges */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.chip.landing { background: var(--bg); color: var(--fg-2); border: 1px solid var(--border); }
+.chip.screening { background: var(--blue-bg); color: var(--blue); }
+.chip.ta { background: var(--accent-light); color: var(--accent); }
+.chip.technical { background: var(--blue-bg); color: var(--blue); }
+.chip.final { background: var(--amber-bg); color: var(--amber); }
+.chip.offer { background: var(--warn-bg); color: var(--warn); }
+.chip.hired { background: var(--green-bg); color: var(--green); }
+.chip.rejected { background: var(--red-bg); color: var(--red); }
+
+.days-num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.days-num.warn { color: var(--warn); font-weight: 600; }
+.days-num.crit { color: var(--red); font-weight: 600; }
+
+/* Two-col grid */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+/* Mini timeline */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.tl-row {
+  display: flex;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  align-items: flex-start;
+}
+.tl-row:last-child { border-bottom: none; }
+.tl-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-mid);
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+.tl-dot.inactive { background: var(--border); }
+.tl-content { flex: 1; min-width: 0; }
+.tl-stage { font-size: 12px; font-weight: 500; }
+.tl-meta { font-size: 11px; color: var(--fg-3); margin-top: 1px; }
+.tl-days {
+  font-size: 11px;
+  font-family: 'IBM Plex Mono', monospace;
+  color: var(--fg-3);
+  white-space: nowrap;
+}
+
+/* Source breakdown */
+.source-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+}
+.source-row:last-child { border-bottom: none; }
+.source-name { flex: 1; color: var(--fg-2); }
+.source-bar-wrap { width: 100px; height: 6px; background: var(--bg); border-radius: 3px; flex-shrink: 0; }
+.source-bar { height: 100%; border-radius: 3px; background: var(--accent-mid); }
+.source-count { width: 28px; text-align: right; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+/* Offer table */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.status-pill.pending { background: var(--amber-bg); color: var(--amber); }
+.status-pill.accepted { background: var(--green-bg); color: var(--green); }
+.status-pill.sent { background: var(--blue-bg); color: var(--blue); }
+
+/* Empty + note */
+.note {
+  font-size: 11px;
+  color: var(--fg-3);
+  font-style: italic;
+}
+
+/* Back breadcrumb */
+.breadcrumb {
+  font-size: 12px;
+  color: var(--fg-3);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px max(20px, env(safe-area-inset-left, 0px));
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+.breadcrumb span { color: var(--accent); cursor: pointer; }
+.breadcrumb span:hover { text-decoration: underline; }
+
+/* Responsive */
+@media (max-width: 700px) {
+  .sidebar { display: none; }
+  .two-col { grid-template-columns: 1fr; }
+  .funnel-label { width: 90px; font-size: 11px; }
+  .kpi-value { font-size: 20px; }
+}
+</style>
+
+<div class="shell">
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <div class="sidebar-logo">
+      <span>Recruitment</span>
+      <span class="sub">Director View</span>
+    </div>
+    <span class="nav-group-label">Overview</span>
+    <div class="nav-item"><span class="nav-icon">◎</span> Summary</div>
+    <div class="nav-item active"><span class="nav-icon">⬡</span> Role Detail</div>
+    <div class="nav-item"><span class="nav-icon">▦</span> Departments</div>
+    <span class="nav-group-label">Pipeline</span>
+    <div class="nav-item"><span class="nav-icon">↓</span> Funnel</div>
+    <div class="nav-item"><span class="nav-icon">◈</span> Offers</div>
+    <div class="nav-item"><span class="nav-icon">⚑</span> Alerts</div>
+  </nav>
+
+  <!-- Main -->
+  <div class="main">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <span>Overview</span> › Role Detail
+    </div>
+
+    <!-- Top bar -->
+    <div class="topbar">
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <div class="page-title">Sr. Field Audit Specialist</div>
+        <div class="badge-dept">GRC</div>
+      </div>
+      <div class="topbar-right">
+        <span class="refresh-label">Last refreshed: 28 Oct 2026, 10:30</span>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab('pipeline',this)">Pipeline</div>
+      <div class="tab" onclick="switchTab('candidates',this)">Candidates</div>
+      <div class="tab" onclick="switchTab('offers',this)">Offers</div>
+      <div class="tab" onclick="switchTab('sources',this)">Sources</div>
+    </div>
+
+    <!-- PIPELINE TAB -->
+    <div class="content">
+      <div class="tab-panel active" id="tab-pipeline">
+        <!-- KPIs -->
+        <div class="kpi-row">
+          <div class="kpi-card warn">
+            <div class="kpi-label">Days Open</div>
+            <div class="kpi-value">87</div>
+            <div class="kpi-sub">Opened 2 Aug 2026</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Total Applications</div>
+            <div class="kpi-value">112</div>
+            <div class="kpi-sub">Last 7 days: +4</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Active in Pipeline</div>
+            <div class="kpi-value">24</div>
+            <div class="kpi-sub">Excl. rejected</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">At Offer Stage</div>
+            <div class="kpi-value">3</div>
+            <div class="kpi-sub">Pending decision</div>
+          </div>
+          <div class="kpi-card green">
+            <div class="kpi-label">Hired</div>
+            <div class="kpi-value">0</div>
+            <div class="kpi-sub">Target: 1</div>
+          </div>
+        </div>
+
+        <!-- Funnel + stage history -->
+        <div class="two-col">
+          <div class="panel">
+            <div class="panel-head">
+              <span class="panel-title">Stage Funnel</span>
+              <span class="note">Active candidates</span>
+            </div>
+            <div class="panel-body">
+              <div class="funnel">
+                <div class="funnel-row">
+                  <span class="funnel-label">Landing</span>
+                  <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:100%"></div></div>
+                  <span class="funnel-count">40</span>
+                  <span class="funnel-pct">100%</span>
+                </div>
+                <div class="funnel-row">
+                  <span class="funnel-label">Screening</span>
+                  <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:70%"></div></div>
+                  <span class="funnel-count">28</span>
+                  <span class="funnel-pct">70%</span>
+                </div>
+                <div class="funnel-row">
+                  <span class="funnel-label">TA Interview</span>
+                  <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:45%"></div></div>
+                  <span class="funnel-count">18</span>
+                  <span class="funnel-pct">45%</span>
+                </div>
+                <div class="funnel-row">
+                  <span class="funnel-label">Technical</span>
+                  <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:35%"></div></div>
+                  <span class="funnel-count">14</span>
+                  <span class="funnel-pct">35%</span>
+                </div>
+                <div class="funnel-row">
+                  <span class="funnel-label">Final Interview</span>
+                  <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:22%"></div></div>
+                  <span class="funnel-count">9</span>
+                  <span class="funnel-pct">22%</span>
+                </div>
+                <div class="funnel-row">
+                  <span class="funnel-label">Offer Stage</span>
+                  <div class="funnel-bar-wrap"><div class="funnel-bar" style="width:7%"></div></div>
+                  <span class="funnel-count">3</span>
+                  <span class="funnel-pct">7.5%</span>
+                </div>
+                <div class="funnel-row">
+                  <span class="funnel-label">Rejected</span>
+                  <div class="funnel-bar-wrap"><div class="funnel-bar rejected" style="width:70%"></div></div>
+                  <span class="funnel-count">88</span>
+                  <span class="funnel-pct">78%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-head">
+              <span class="panel-title">Stage Timeline</span>
+              <span class="note">Avg days per stage</span>
+            </div>
+            <div class="panel-body">
+              <div class="timeline">
+                <div class="tl-row">
+                  <div class="tl-dot"></div>
+                  <div class="tl-content">
+                    <div class="tl-stage">Landing → Screening</div>
+                    <div class="tl-meta">Profile review + screening call</div>
+                  </div>
+                  <span class="tl-days">3d avg</span>
+                </div>
+                <div class="tl-row">
+                  <div class="tl-dot"></div>
+                  <div class="tl-content">
+                    <div class="tl-stage">Screening → TA Interview</div>
+                    <div class="tl-meta">TA scheduling</div>
+                  </div>
+                  <span class="tl-days">5d avg</span>
+                </div>
+                <div class="tl-row">
+                  <div class="tl-dot"></div>
+                  <div class="tl-content">
+                    <div class="tl-stage">TA → Technical</div>
+                    <div class="tl-meta">Technical assessment</div>
+                  </div>
+                  <span class="tl-days">7d avg</span>
+                </div>
+                <div class="tl-row">
+                  <div class="tl-dot"></div>
+                  <div class="tl-content">
+                    <div class="tl-stage">Technical → Final</div>
+                    <div class="tl-meta">HM / panel interview</div>
+                  </div>
+                  <span class="tl-days">9d avg</span>
+                </div>
+                <div class="tl-row">
+                  <div class="tl-dot"></div>
+                  <div class="tl-content">
+                    <div class="tl-stage">Final → Offer</div>
+                    <div class="tl-meta">Offer preparation</div>
+                  </div>
+                  <span class="tl-days" style="color:var(--warn);font-weight:600;">14d avg ⚠</span>
+                </div>
+                <div class="tl-row">
+                  <div class="tl-dot inactive"></div>
+                  <div class="tl-content">
+                    <div class="tl-stage">Offer → Hired</div>
+                    <div class="tl-meta">Decision pending</div>
+                  </div>
+                  <span class="tl-days">—</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CANDIDATES TAB -->
+      <div class="tab-panel" id="tab-candidates">
+        <div class="panel">
+          <div class="panel-head">
+            <span class="panel-title">Active Candidates</span>
+            <span class="note">24 active · sorted by days in stage</span>
+          </div>
+          <div style="overflow-x:auto;">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Candidate</th>
+                  <th>Current Stage</th>
+                  <th>Days in Stage</th>
+                  <th>Source</th>
+                  <th>Recruiter</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><div class="candidate-name">Ahmed Kamal</div><div class="candidate-email">ahmed.k@gmail.com</div></td>
+                  <td><span class="chip offer">Offer Stage</span></td>
+                  <td><span class="days-num crit">18d</span></td>
+                  <td>LinkedIn</td>
+                  <td>Sara M.</td>
+                </tr>
+                <tr>
+                  <td><div class="candidate-name">Nour Hassan</div><div class="candidate-email">nour.h@outlook.com</div></td>
+                  <td><span class="chip offer">Offer Stage</span></td>
+                  <td><span class="days-num warn">12d</span></td>
+                  <td>Referral</td>
+                  <td>Sara M.</td>
+                </tr>
+                <tr>
+                  <td><div class="candidate-name">Mohamed Adel</div><div class="candidate-email">m.adel@yahoo.com</div></td>
+                  <td><span class="chip final">Final Interview</span></td>
+                  <td><span class="days-num warn">9d</span></td>
+                  <td>Indeed</td>
+                  <td>Sara M.</td>
+                </tr>
+                <tr>
+                  <td><div class="candidate-name">Rana Ibrahim</div><div class="candidate-email">rana.i@gmail.com</div></td>
+                  <td><span class="chip technical">Technical</span></td>
+                  <td><span class="days-num">6d</span></td>
+                  <td>LinkedIn</td>
+                  <td>Sara M.</td>
+                </tr>
+                <tr>
+                  <td><div class="candidate-name">Youssef Ali</div><div class="candidate-email">y.ali@gmail.com</div></td>
+                  <td><span class="chip ta">TA Interview</span></td>
+                  <td><span class="days-num">4d</span></td>
+                  <td>Website</td>
+                  <td>Sara M.</td>
+                </tr>
+                <tr>
+                  <td><div class="candidate-name">Dina Mostafa</div><div class="candidate-email">dina.m@gmail.com</div></td>
+                  <td><span class="chip screening">Screening</span></td>
+                  <td><span class="days-num">2d</span></td>
+                  <td>LinkedIn</td>
+                  <td>Sara M.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- OFFERS TAB -->
+      <div class="tab-panel" id="tab-offers">
+        <div class="kpi-row" style="margin-bottom:20px;">
+          <div class="kpi-card">
+            <div class="kpi-label">Offers Sent</div>
+            <div class="kpi-value">3</div>
+          </div>
+          <div class="kpi-card green">
+            <div class="kpi-label">Accepted</div>
+            <div class="kpi-value">0</div>
+          </div>
+          <div class="kpi-card warn">
+            <div class="kpi-label">Pending Decision</div>
+            <div class="kpi-value">3</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Avg Days to Decide</div>
+            <div class="kpi-value">—</div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><span class="panel-title">Offer Decisions</span></div>
+          <div style="overflow-x:auto;">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Candidate</th>
+                  <th>Offer Date</th>
+                  <th>Days Pending</th>
+                  <th>Status</th>
+                  <th>Offer Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><div class="candidate-name">Ahmed Kamal</div></td>
+                  <td>10 Oct 2026</td>
+                  <td><span class="days-num crit">18d</span></td>
+                  <td><span class="status-pill pending">⏳ Pending</span></td>
+                  <td>—</td>
+                </tr>
+                <tr>
+                  <td><div class="candidate-name">Nour Hassan</div></td>
+                  <td>16 Oct 2026</td>
+                  <td><span class="days-num warn">12d</span></td>
+                  <td><span class="status-pill sent">✉ Sent</span></td>
+                  <td>—</td>
+                </tr>
+                <tr>
+                  <td><div class="candidate-name">Layla Samir</div></td>
+                  <td>22 Oct 2026</td>
+                  <td><span class="days-num">6d</span></td>
+                  <td><span class="status-pill sent">✉ Sent</span></td>
+                  <td>—</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- SOURCES TAB -->
+      <div class="tab-panel" id="tab-sources">
+        <div class="two-col">
+          <div class="panel">
+            <div class="panel-head"><span class="panel-title">Application Sources</span></div>
+            <div class="panel-body">
+              <div class="source-row">
+                <span class="source-name">LinkedIn</span>
+                <div class="source-bar-wrap"><div class="source-bar" style="width:90%"></div></div>
+                <span class="source-count">54</span>
+              </div>
+              <div class="source-row">
+                <span class="source-name">Indeed</span>
+                <div class="source-bar-wrap"><div class="source-bar" style="width:30%"></div></div>
+                <span class="source-count">18</span>
+              </div>
+              <div class="source-row">
+                <span class="source-name">Referral</span>
+                <div class="source-bar-wrap"><div class="source-bar" style="width:22%"></div></div>
+                <span class="source-count">13</span>
+              </div>
+              <div class="source-row">
+                <span class="source-name">Website</span>
+                <div class="source-bar-wrap"><div class="source-bar" style="width:15%"></div></div>
+                <span class="source-count">9</span>
+              </div>
+              <div class="source-row">
+                <span class="source-name">Other</span>
+                <div class="source-bar-wrap"><div class="source-bar" style="width:10%"></div></div>
+                <span class="source-count">6</span>
+              </div>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel-head"><span class="panel-title">Quality by Source</span></div>
+            <div class="panel-body">
+              <div style="overflow-x:auto;">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Source</th>
+                      <th>Applied</th>
+                      <th>Reached Final</th>
+                      <th>Conv. %</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Referral</td><td>13</td><td>5</td><td style="color:var(--green);font-weight:600;">38%</td></tr>
+                    <tr><td>LinkedIn</td><td>54</td><td>12</td><td>22%</td></tr>
+                    <tr><td>Website</td><td>9</td><td>1</td><td>11%</td></tr>
+                    <tr><td>Indeed</td><td>18</td><td>1</td><td style="color:var(--red);">5%</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function switchTab(id, el) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('tab-' + id).classList.add('active');
+}
+</script>
+
+</body></html>
